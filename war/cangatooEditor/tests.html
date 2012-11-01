@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+	<head>
+		<title>Tests</title>
+		<script type="text/javascript" src="./testFramework/TestFramework.js"></script>
+		<script type="text/javascript" src="./GameBasis/tests/TestElement.js"></script>
+		<script type="text/javascript" src="./GameBasis/tests/TestUtils.js"></script>
+		
+		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Utils.js"></script>
+		<script type="text/javascript" >
+			function runTests(){
+				runTestsFor(new TestElement());
+				runTestsFor(new TestUtils());
+			}
+		</script>
+	</head>
+	<body onLoad="runTests()">
+	<table id="testResults" border="1">
+	</table>
+	</body>
+</html>

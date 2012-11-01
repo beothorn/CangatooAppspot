@@ -1,0 +1,81 @@
+body{
+	background: #EEEEEE;
+}
+
+#loadGameCodeDiv,#helpAboutText,#menu,.tabContent{ 
+	background:#FFFFFF;
+}
+
+#menu{ 
+	color: #000000;
+	padding: 0px;
+	margin: 0px;
+}
+
+#menu ul{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	width: 160px; /* Width of Menu Items */
+	border-bottom: 1px solid #ccc;
+}
+
+#menu ul li{
+	list-style: none;
+	align-text: center;
+}
+
+/* Sub level menu links style */
+#menu ul li a{
+	display: block;
+	overflow: auto; /*force hasLayout in IE7 */
+	color: black;
+	text-decoration: none;
+	background: #fff;
+	padding: 1px 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+}
+
+#menu ul li a:visited{
+	color: black;
+}
+
+#menu ul li a:hover{
+	background-color: gray;
+}
+
+canvas, img { 
+	display: block;  
+	border: 1px solid black; 
+}
+
+#ElementFacoryEditor,#LevelEditor{
+	width:100%;
+	height:100%;
+	text-align:left;
+}
+
+#editorFirstCol{
+	width:20%;
+	height:2em;
+}
+
+#pageOutput,#codeToLoad,#console,#searchOrAddFactory,#searchOrAddLevel{
+	width:100%;
+}
+
+#factoryCodeEditor,#levelCodeEditor{
+	width:100%;
+	height:100%;
+}
+
+#factories,#levels{
+	width:100%;
+	height:100%;
+}
+
+.tabContent { 
+	height: 20em;
+	width: 60em; 
+}

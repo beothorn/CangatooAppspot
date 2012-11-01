@@ -1,0 +1,178 @@
+<html>
+	<head>
+		<title>Cangatoo - Canvas game Tool</title>
+		
+		<script src="./lib/jquery-1.7.2.min.js"></script>
+		<script src="./lib/dom-drag.js"></script>
+		
+		<!-- Boot debug START -->
+		
+		<script type="text/javascript">
+		  indexDebug = true;
+		</script>
+		
+		<!-- If you add anything here don't forget to add it on CangatooBoot include -->
+		
+		<script type="text/javascript" src="./GameBasis/src/GameLoader.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Resources.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Element.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Level.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Utils.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/Game.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/ElementFactory.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/GameSetup.js"></script>
+		<script type="text/javascript" src="./GameBasis/src/GameGlobals.js"></script>
+		
+		<script type="text/javascript" src="./CangatooEditor/Cangatoo.js"></script>
+		<script type="text/javascript" src="./WebEditor/Bindings.js"></script>
+		<script type="text/javascript" src="./Export/src/GameSourceExport.js"></script>
+		<script type="text/javascript" src="./Export/src/HeaderRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/SetupRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/CanvasPropertiesRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/ResourcesRenderer.js"></script>
+	  <script type="text/javascript" src="./Export/src/GameNameRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/FactoriesRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/LevelsRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/FooterRenderer.js"></script>
+		<script type="text/javascript" src="./Export/src/IncludesRenderer.js"></script>
+		
+		<script type="text/javascript" src="./Demos/BouncingBalls.js"></script>
+		<script type="text/javascript" src="./Demos/EmptyGame.js"></script>
+		
+		<!-- Boot debug END  -->
+		
+		<script type="text/javascript" src="./Boot/CangatooBoot.js"></script>
+		
+				
+		<link rel="stylesheet" type="text/css" href="./defaultSkin.css" />
+		
+		<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-27342713-1']);
+		_gaq.push(['_trackPageview']);
+	
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+  	</script>
+		
+	</head>
+	<body>
+	
+	<div id="Menu" class="windowDialog" title="Menu" style="left: 6px; top: 6px;" data-x="6px" data-y="6px">
+		<ul>
+			<li>Options
+				<ul>
+					<li><a id="newGame" href="#">New game</a></li>
+					<li><a id="loadGame" href="#">Load game</a></li>
+					<li><a id="exportGame" href="#">Export to .js</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul>
+			<li>View
+				<ul>
+					<li><a onclick="showWindow('Factories_editor')" href="#">Factories editor</a></li>
+					<li><a onclick="showWindow('Levels_editor')" href="#">Levels editor</a></li>
+					<li><a onclick="showWindow('Exported_javascript')" href="#">Export javascript</a></li>
+					<li><a onclick="showWindow('Load_game_window')" href="#">Code execution window</a></li>
+					<li><a onclick="showWindow('About')" href="#">About</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<div id="About" class="windowHidden" title="About" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
+		Cangatoo is an event oriented game editor.<br> 
+		It's goal is to be an easy to use tool to create<br>
+		simple 2d games using the power of html5 canvas.<br>
+		There is still a lot of things to be done on Cangatoo,<br>
+		this is just the very beginning of the project.
+	</div>
+
+	<div id="Exported_javascript" class="windowHidden" title="Exported js" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
+		<textarea id="pageOutput" rows="30"></textarea>
+	</div>
+	
+	<div id="Load_game_window" class="windowHidden" title="Add code to be loaded here" style="background:#FFFFFF;left: 6px; top: 377px;" data-x="6px" data-y="377px">
+		<textarea id="codeToLoad" rows="30">Write code or add game code to loade here. example: println("Hello world");</textarea>
+		<br>
+		<input type="button" id="loadCode" value="Load as new game"/>
+		<input type="button" id="executeCode" value="Execute"/>
+		<input type="button" id="clearCodeToLoad" value="Clear"/>
+		<br>
+		<textarea id="console" rows="10">console</textarea>
+		<br>
+		<input type="button" id="clearConsole" value="Clear"/>
+	</div>
+		
+	<div id="CanvasWindow" class="windowDialog" title="Canvas" style="background:#FFFFFF;left: 180px; top: 89px;" data-x="180px" data-y="6px">
+		<input type="radio" name="gameFlow" id="rPlay" checked="checked"/>Play</label>
+		<input type="radio" name="gameFlow" id="rPause" />Pause</label>
+		<input type="radio" name="gameFlow" id="rEdit" />Edit level</label>
+		<input type="button" id="restartLevel" value="Restart Level"/>
+		<input type="button" id="restartGame" value="Restart Game"/>
+		&nbsp;Go to level:
+		<select id="levelGoto"></select>
+		<canvas id="Canvas" width="500" height="300">
+			<p>Your browser does not support the canvas element, this is supposed to be a canvas game editor so get the latest firefox or chrome!</p>
+		</canvas>
+	</div>
+
+	<div id="gameState"></div>		
+		
+		
+	<div id="Factories_editor" class="window" title="Factories editor" style="left: 6px; top: 377px;" data-x="6px" data-y="377px" >
+		<div class="tabContent">
+			<table id="ElementFacoryEditor" border ="0">
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddFactory" value="NewElementFactory"/>
+					</td>
+					<td>
+						<select id="factoryEvents" ></select>
+						<input type="button" id="saveFactoryCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="factories" size="2"></select>
+					</td>
+					<td>
+						<textarea id="factoryCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+		
+	<div id="Levels_editor" class="windowHidden" title="Levels editor" style="left: 6px; top: 377px;" data-x="6px" data-y="377px">
+		<div class="tabContent">
+			<table id="LevelEditor" border ="0" >
+				<tr>
+					<td id="editorFirstCol">
+						<input type="text" id="searchOrAddLevel" value="NewLevel"/>
+					</td>
+					<td>
+						<select id="levelEvents" ></select>
+						<input type="button" id="saveLevelCode" value="save"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="levels" size="2"></select>
+					</td>
+					<td>
+						<textarea id="levelCodeEditor"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+				
+	</body>
+</html>
